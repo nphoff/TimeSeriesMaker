@@ -1,13 +1,13 @@
 # Time Series Maker
 
 Simple app to generate hand-drawn time series.
-To test it look [here](http://mbonvini.github.io/TimeSeriesMaker).
 
-![TimeSeriesMaker](https://raw.githubusercontent.com/mbonvini/TimeSeriesMaker/master/images/tsmkr.gif)
+This is a work in progress :)
 
-### Author
+### Authors
 
 Marco Bonvini
+Nathan Hoffman
 
 ### License
 
