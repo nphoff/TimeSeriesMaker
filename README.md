@@ -6,7 +6,7 @@ This is a work in progress :)
 
 ### Authors
 
-Marco Bonvini
+Marco Bonvini,
 Nathan Hoffman
 
 ### License
