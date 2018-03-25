@@ -4,6 +4,8 @@ $(document).ready(function () {
     createTimeSeriesMaker('#canvas', 1, 'foo'),
     createTimeSeriesMaker('#canvas-test', 2, 'bar'),
   ];
+
+  var numAccessors = 2;
   // Function that generates JSON representation of the data
   // and allows to download it
   function exportDataToJson(filename) {
@@ -75,6 +77,11 @@ $(document).ready(function () {
     if(haveData){
       exportDataToJson.apply(this, ['data.json']);
     }
+  });
+  $("#addNew").on("click", function(e) {
+    var newId = "#canvas-" + numAccessors;
+    accessors.append(createTimeSeriesMaker(newId, numAccessors, 'foo'))
+    numAccessors += 1
   });
 
 
