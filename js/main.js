@@ -78,8 +78,16 @@ $(document).ready(function () {
       exportDataToJson.apply(this, ['data.json']);
     }
   });
+
   $("#addNew").on("click", function(e) {
+    e.preventDefault();
+    console.log('was called');
     var newId = "#canvas-" + numAccessors;
+    $('#canvas-container').append('<div class="row">' +
+      '<div class="col-md-10 col-md-offset-1" id="' + newId + '">' +
+      '</div>' +
+      '</div>'
+    );
     accessors.append(createTimeSeriesMaker(newId, numAccessors, 'foo'))
     numAccessors += 1
   });
