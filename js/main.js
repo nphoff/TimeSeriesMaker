@@ -1,8 +1,9 @@
 $(document).ready(function () {
 
   var accessors = [
-    createTimeSeriesMaker('#canvas', 0, 'foo'),
-    createTimeSeriesMaker('#canvas-test', 1, 'bar'),
+    createTimeSeriesMaker('#canvas-1', 0, 'foo'),
+    createTimeSeriesMaker('#canvas-2', 1, 'bar'),
+    createTimeSeriesMaker('#canvas-3', 2, 'baz'),
   ];
 
   var numAccessors = 2;
@@ -79,6 +80,8 @@ $(document).ready(function () {
     }
   });
 
+  /*
+
   $("#addNew").on("click", function(e) {
     e.preventDefault();
     console.log('was called');
@@ -91,6 +94,7 @@ $(document).ready(function () {
     accessors.push(createTimeSeriesMaker(newId, numAccessors, 'foo'))
     numAccessors += 1
   });
+  */
 
 
 });
