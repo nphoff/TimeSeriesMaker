@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
   var accessors = [
-    createTimeSeriesMaker('#canvas', 1, 'foo'),
-    createTimeSeriesMaker('#canvas-test', 2, 'bar'),
+    createTimeSeriesMaker('#canvas', 0, 'foo'),
+    createTimeSeriesMaker('#canvas-test', 1, 'bar'),
   ];
 
   var numAccessors = 2;
@@ -88,7 +88,7 @@ $(document).ready(function () {
       '</div>' +
       '</div>'
     );
-    accessors.append(createTimeSeriesMaker(newId, numAccessors, 'foo'))
+    accessors.push(createTimeSeriesMaker(newId, numAccessors, 'foo'))
     numAccessors += 1
   });
 
