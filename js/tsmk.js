@@ -1,6 +1,9 @@
 // Get the size of teh div containing the plot
 var createTimeSeriesMaker = function(selector, id, name) {
 
+  var today = new Date();
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
   var sensorName = name;
 
   var rectangleId = "rect-" + id;
@@ -13,19 +16,21 @@ var createTimeSeriesMaker = function(selector, id, name) {
     height = divHeight - margin.top - margin.bottom;
 
   // Scales for X and Y axes
-  var x = d3.scale.linear().domain([0, 24]).range([0, width]);
-  var y = d3.scale.linear().domain([0, 100]).range([height, 0]);
+  // TODO - fixme go from yesterday to today.
+  var timeScale = d3.time.scale.utc().domain([yesterday, today]).range([0, width]);
+  var xScale = d3.scale.linear().domain([0, 24]).range([0, width]);
+  var yScale = d3.scale.linear().domain([0, 100]).range([height, 0]);
 
   // X and Y axes
   var xAxis = d3.svg.axis()
-    .scale(x)
+    .scale(timeScale)
     .orient("bottom")
     .innerTickSize(-height)
     .outerTickSize(6)
     .tickPadding(10);
 
   var yAxisLeft = d3.svg.axis()
-    .scale(y)
+    .scale(yScale)
     .orient("left")
     .ticks(10)
     .innerTickSize(-width)
@@ -72,10 +77,10 @@ var createTimeSeriesMaker = function(selector, id, name) {
 
   var accessor = {
     getTimes: function() {
-      return drawObj.dataPoints.map(function(v) { return x.invert(v[0]) });
+      return drawObj.dataPoints.map(function(v) { return timeScale.invert(v[0]) });
     },
     getValues: function() {
-      return drawObj.dataPoints.map(function(v) { return y.invert(v[1]) });
+      return drawObj.dataPoints.map(function(v) { return yScale.invert(v[1]) });
     },
     getName: function() {
       return sensorName;
