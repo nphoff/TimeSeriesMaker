@@ -80,6 +80,11 @@ $(document).ready(function () {
     }
   });
 
+  $("#add-noise-1").on("click", function(e) {
+    e.preventDefault();
+    accessors[0].addNoise();
+  });
+
   /*
 
   $("#addNew").on("click", function(e) {

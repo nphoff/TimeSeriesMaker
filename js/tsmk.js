@@ -1,11 +1,11 @@
-// Get the size of teh div containing the plot
 var createTimeSeriesMaker = function(selector, id, name) {
 
   var today = new Date();
-  var yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
+  var lastMonth = new Date();
+  lastMonth.setMonth(lastMonth.getMonth() - 2);
   var sensorName = name;
 
+  // Get the size of the div containing the plot
   var rectangleId = "rect-" + id;
   var divWidth = $(selector).width();
   var divHeight = divWidth/2.5;
@@ -16,9 +16,7 @@ var createTimeSeriesMaker = function(selector, id, name) {
     height = divHeight - margin.top - margin.bottom;
 
   // Scales for X and Y axes
-  // TODO - fixme go from yesterday to today.
-  var timeScale = d3.time.scale.utc().domain([yesterday, today]).range([0, width]);
-  var xScale = d3.scale.linear().domain([0, 24]).range([0, width]);
+  var timeScale = d3.time.scale.utc().domain([lastMonth, today]).range([0, width]);
   var yScale = d3.scale.linear().domain([0, 100]).range([height, 0]);
 
   // X and Y axes
@@ -75,17 +73,6 @@ var createTimeSeriesMaker = function(selector, id, name) {
     currentPath: null,
   };
 
-  var accessor = {
-    getTimes: function() {
-      return drawObj.dataPoints.map(function(v) { return timeScale.invert(v[0]) });
-    },
-    getValues: function() {
-      return drawObj.dataPoints.map(function(v) { return yScale.invert(v[1]) });
-    },
-    getName: function() {
-      return sensorName;
-    }
-  }
 
   // Function called when the mousedown event on the SVG canvas
   // is detected
@@ -182,6 +169,25 @@ var createTimeSeriesMaker = function(selector, id, name) {
     }
     d3.event.preventDefault();
   });
+
+  var accessor = {
+    getTimes: function() {
+      return drawObj.dataPoints.map(function(v) {
+        return timeScale.invert(v[0]).toISOString()
+      });
+    },
+    getValues: function() {
+      return drawObj.dataPoints.map(function(v) { return yScale.invert(v[1]) });
+    },
+    getName: function() {
+      return sensorName;
+    },
+    addNoise: function() {
+      for (var i = 0; i < drawObj.dataPoints.length; i++) {
+        drawObj.dataPoints[i][1] += 2
+      }
+    }
+  }
 
   return accessor;
 }
